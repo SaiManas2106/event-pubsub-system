@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Summary Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h2 {
+      color: #005a9e;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    #summary {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+      padding: 25px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 8px 0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #f2f2f2;
+    }
+
+    .yes {
+      color: green;
+      font-weight: bold;
+    }
+
+    .no {
+      color: red;
+      font-weight: bold;
+    }
+
+    .maybe {
+      color: orange;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 50px;
+      color: #888;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>📋 Event Summary</h2>
+  <div id="summary">Loading...</div>
+
+  <footer>
+    Powered by Flask, RabbitMQ, and Vanilla JS
+  </footer>
+
+  <script>
+    async function loadSummary() {
+      try {
+        const res = await fetch("http://localhost:5000/summary");
+        if (res.ok) {
+          const data = await res.json();
+          let html = `
+            <p><strong>Event:</strong> ${data.event}</p>
+            <p><strong>Host:</strong> ${data.host}</p>
+            <p><strong>Responses:</strong></p>
+            <ul>
+          `;
+          for (const [guest, response] of Object.entries(data.responses)) {
+            const cssClass = response.toLowerCase(); // yes / no / maybe
+            html += `<li><strong>${guest}:</strong> <span class="${cssClass}">${response}</span></li>`;
+          }
+          html += "</ul>";
+          document.getElementById("summary").innerHTML = html;
+        } else {
+          document.getElementById("summary").textContent = "No summary yet.";
+        }
+      } catch (error) {
+        document.getElementById("summary").textContent = "Error loading summary.";
+        console.error("Fetch error:", error);
+      }
+    }
+
+    loadSummary();
+    setInterval(loadSummary, 3000);
+  </script>
+</body>
+</html>
