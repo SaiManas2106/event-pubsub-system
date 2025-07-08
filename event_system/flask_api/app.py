@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # ✅ Import CORS
-import json, os
+from flask_cors import CORS
+import json
+import os
 
 app = Flask(__name__)
-CORS(app)  # ✅ Enable CORS for all routes
+CORS(app)  # Allow cross-origin requests for frontend fetch()
 
 SUMMARY_FILE = os.path.join(os.path.dirname(__file__), 'summary.json')
 
@@ -23,4 +24,5 @@ def get_summary():
     return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Bind to 0.0.0.0 and use port 10000 for Render
+    app.run(host='0.0.0.0', port=10000)
