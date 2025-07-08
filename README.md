@@ -4,6 +4,9 @@ A Pub/Sub-based event planning system in Python using RabbitMQ, Flask, and a sim
 
 ---
 
+View live dashboard at:
+https://event-pubsub-system.vercel.app/dashboard.html
+
 ## 📌 Project Overview
 
 This system demonstrates a decoupled, asynchronous communication model where:
