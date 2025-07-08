@@ -1,3 +1,4 @@
 pika
 Flask
 requests
+flask-cors
