@@ -41,7 +41,7 @@ def response_callback(ch, method, properties, body):
         channel.basic_publish(exchange='', routing_key='summary_queue', body=json.dumps(summary))
         print("[Coordinator] Sent final summary to host.")
         try:
-            requests.post("http://127.0.0.1:5000/summary", json=summary)
+            requests.post("https://event-pubsub-system.onrender.com/summary", json=summary)
         except Exception as e:
             print("Failed to send summary to Flask API:", e)
         connection.close()
