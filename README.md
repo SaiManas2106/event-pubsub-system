@@ -118,15 +118,7 @@ Then open: [http://localhost:8000/dashboard.html](http://localhost:8000/dashboar
 
 ---
 
-## 🎥 Demo Instructions (for video)
 
-1. Show all terminal windows running (host, coordinator, 3 guests, flask)
-2. Run `host.py` → observe logs and guest responses
-3. Open `localhost:8000/dashboard.html` to show live summary
-4. Explain message flow: Host → Coordinator → Guests → Coordinator → Host
-5. Show JSON at `/summary` and explain REST/API link to frontend
-
----
 
 ## 💡 Design Decisions
 
